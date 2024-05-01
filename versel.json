@@ -1,6 +1,6 @@
 {
-    "rewtires": [
-        {"sourse": "/(.*", 
+    "rewrites": [
+        {"source": "/(.*", 
     "destination": "/"}
     ]
 }
