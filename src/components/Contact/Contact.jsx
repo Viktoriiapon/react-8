@@ -1,9 +1,12 @@
 import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations";
+import { useState } from "react";
 
 import css from "./Contact.module.css";
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
+  const setIsOpen = useState(false);
+    const setContactId = useState(null);
   const onDeleteContact = (id) => {
     dispatch(deleteContact(id));
   };
@@ -26,3 +29,11 @@ const Contact = ({ contact }) => {
 };
 
 export default Contact;
+
+
+
+
+
+
+
+

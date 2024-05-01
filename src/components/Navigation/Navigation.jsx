@@ -5,49 +5,32 @@
     import { useSelector } from "react-redux";
     
     import css from "./Navigation.module.css";
-    // import clsx from "clsx";
+    import clsx from "clsx";
 
-    export const Navigation = () => {
-        const { isLoggedIn } = useSelector(selectIsLoggedIn);
+    export const getNavLinkClassName = ({ isActive }) =>
+    clsx(css.navLink, {
+      [css.active]: isActive,
+    });
+     const Navigation = () => {
+        const isLoggedIn = useSelector(selectIsLoggedIn);
       
         return (
           <nav>
-            <NavLink className={css.link} to="/">
+            <NavLink className={getNavLinkClassName} to="/">
               Home
             </NavLink>
             {isLoggedIn && (
-              <NavLink className={css.link} to="/tasks">
-                Tasks
+              <NavLink className={getNavLinkClassName} to="/contacts">
+                Contacts
               </NavLink>
             )}
           </nav>
         );
       };
       
+      
+      export default Navigation;
 
-    // export const getNavLinkClassName = ({ isActive }) =>
-    // clsx(css.navLink, {
-    //     [css.active]: isActive,
-    // });
-
-    // const Navigation = () => {
-    //     const isLoggedIn = useSelector(selectIsLoggedIn);
-    // return (
-    //     <nav className={css.nav}>
-    //     <NavLink className={getNavLinkClassName} to="/">
-    //         Home 
-    //     </NavLink>
-    //     {isLoggedIn && (
-    //         <NavLink className={getNavLinkClassName} to="/contacts">
-    //         Contacts 
-    //     </NavLink>
-    //     )}
-        
-    //     </nav>
-    // );
-    // };
-
-    // export default Navigation;
 
 
 

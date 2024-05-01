@@ -1,14 +1,12 @@
 #root{
-  width: 1280px;
+  width: 500px;
   
 }
 
 .container {   
     width: 385px;
     padding: 25px;
-    /* display: flex;
-    flex-wrap: wrap;
-    flex-direction: column; */
+  
     
 }
 

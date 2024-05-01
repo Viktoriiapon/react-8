@@ -1,7 +1,7 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchContacts, addContact, deleteContact } from "./operations";
-import { selectFilter } from "../filters/slice";
+import { fetchContacts, addContact, deleteContact, updateContact, } from "./operations";
+// import { selectFilter } from "../filters/slice";
 
 const INITIAL_STATE = {
   contacts: {
@@ -19,13 +19,16 @@ const contactsSlice = createSlice({
     state.contacts.loading = true;
   state.contacts.error = null;})
 
+
   .addCase(fetchContacts.fulfilled, (state, action) => {
     state.contacts.loading = false;
     state.contacts.items = action.payload;})
 
-    .addCase(fetchContacts.rejected, (state) => {
+
+
+    .addCase(fetchContacts.rejected, (state, action) => {
     state.contacts.loading = false;
-    state.contacts.error = true;})
+    state.contacts.error = action.payload;})
 
     .addCase(addContact.pending, (state) => {
       state.contacts.loading = true;
@@ -36,9 +39,13 @@ const contactsSlice = createSlice({
         state.contacts.loading = false;
         state.contacts.items.push(action.payload);})
 
-        .addCase(addContact.rejected, (state) => {
+
+
+        .addCase(addContact.rejected, (state, action) => {
       state.contacts.loading = false;
-      state.contacts.error = true;})
+      state.contacts.error = action.payload;})
+
+  
 
       .addCase(deleteContact.pending, (state) => {
       state.contacts.loading = true;
@@ -56,16 +63,20 @@ const contactsSlice = createSlice({
             state.contacts.error = action.payload;
           })
 
+          .addCase(updateContact.pending, (state) => {
+            state.contacts.loading = true;
+            state.contacts.error = null;
+          })
+          .addCase(updateContact.fulfilled, (state, action) => {
+            state.contacts.loading = false;
+            state.contacts.items = action.payload;
+          })
+          .addCase(updateContact.rejected, () => {
+            state.contacts.loading = false;
+            state.contacts.error = action.payload;
+          }),
+
 });
-export const selectContacts = (state) => state.contacts.contacts.items;
-export const selectIsLoading = (state) => state.contacts.contacts.loading;
-export const selectError = (state) => state.contacts.contacts.error;
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectFilter],
-  (contacts, filter) => {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }
-);
 export const contactsReducer = contactsSlice.reducer;
+
+

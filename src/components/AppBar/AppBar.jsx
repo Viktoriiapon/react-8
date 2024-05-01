@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
-import { Navigation }from "../Navigation/Navigation";
+import Navigation from "../Navigation/Navigation";
 import {AuthNav} from "../AuthNav/AuthNav";
 import {UserMenu} from "../UserMenu/UserMenu";
 
@@ -17,3 +17,4 @@ const AppBar = () => {
 };
 
 export default AppBar;
+

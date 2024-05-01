@@ -61,7 +61,7 @@ const authSlice = createSlice({
           logout.rejected,
           refreshUser.rejected
         ),
-        (state) => {
+        (state, action) => {
           state.loading = false;
           state.error = action.payload;
         }

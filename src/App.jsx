@@ -1,22 +1,28 @@
-// import React, { useState, useEffect } from 'react';
+
 import { Suspense, lazy, useEffect } from "react";
-import ContactList from './components/ContactList/ContactList';
-import SearchBox from './components/SearchBox/SearchBox';
-import ContactForm from './components/ContactForm/ContactForm';
+import { useDispatch } from 'react-redux';``
+
 import { Route, Routes } from 'react-router-dom';
 
 
-
-import './App.css';
-import { useDispatch } from 'react-redux';
 import { fetchContacts } from './redux/contacts/operations';
 import Layout from './components/Layout/Layout';
 
 import RegistrationPage  from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
-import ContactsPage from './pages/ContactsPage';
-import HomePage from './pages/HomePage';
+import ContactsPage from './pages/ContactsPage'
+
 import Loader from "./components/Loader/Loader";
+import './App.css';
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const RestrictedRoute = lazy(() =>
+  import("./components/RestrictedRoute/RestrictedRoute")
+);
+const PrivateRoute = lazy(() =>
+  import("./components/PrivateRoute/PrivateRoute")
+);
+const NotFound = lazy(() => import("./components/NotFound/NotFound"));
 
 function App() {
   const dispatch = useDispatch();
@@ -26,21 +32,22 @@ function App() {
 
   return (
    <>
-      <h1>PhoneBook</h1>
-      <div className="container">
+      
     <Layout>
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path ="/" element ={<HomePage />} />
-        <Route path ="/register" element ={<RegistrationPage />} />
-        <Route path ="/login" element ={<LoginPage />} />
-        <Route path ="/contacts" element ={<ContactsPage />} />
+        <Route 
+        path ="/register" 
+        element ={
+        <RestrictedRoute ><RegistrationPage /></RestrictedRoute>} />
+        <Route path ="/login" element ={<RestrictedRoute><LoginPage /></RestrictedRoute>} />
+        <Route path ="/contacts" element ={ <PrivateRoute><ContactsPage /></PrivateRoute>} />
         {/* <Route path ="*" element ={<NotFound />} /> */}
 
       </Routes>
       </Suspense>
     </Layout>
-    </div>
     </>
   );
 }

@@ -28,8 +28,7 @@ export const register = createAsyncThunk(
 export const logIn = createAsyncThunk("auth/login", async (user, thunkApi) => {
   try {
     const data = await apiLogin(user);
-    setToken,
-    (data.token);
+    setToken(data.token);
     console.log(data);
     return data;
 
@@ -53,13 +52,14 @@ export const refreshUser = createAsyncThunk(
     try {
       const state = thunkApi.getState();
       const token = state.auth.token;
-      setToken,
-      (token);
+      setToken(token);
       const data = await apiRefresh();
-      console.log();
+      console.log(token);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
+
+

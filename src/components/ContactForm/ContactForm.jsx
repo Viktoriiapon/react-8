@@ -25,7 +25,7 @@ const FORM_INITIAL_VALUES = {
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.items);
+  // const contacts = useSelector((state) => state.contacts.items);
 
   const handleSubmit = (values, actions) => {
     dispatch(addContact(values));
@@ -59,3 +59,7 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
+
+
+
+  
