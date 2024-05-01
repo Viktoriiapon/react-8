@@ -1,0 +1,6 @@
+{
+    "rewtires": [
+        {"sourse": "/(.*", 
+    "destination": "/"}
+    ]
+}
